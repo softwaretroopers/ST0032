@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     height: height_logo,
   },
   button: {
-    padding: "4%",
+    padding: "2%",
     marginTop: "5%",
   },
   forget: {

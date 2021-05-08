@@ -19,14 +19,10 @@ import AppAddEmployee from "./src/screens/AppAddEmployee";
 import AppDrawerContent from "./src/navigation/AppDrawerContent";
 import AppAddStock from "./src/screens/AppAddStock";
 import AppReport from "./src/screens/AppReport";
-import AppAddInvoice from "./src/screens/AppAddInvoice";
-import AppAddReturn from "./src/screens/AppAddReturn";
-import AppSelectShop from "./src/screens/AppSelectShop";
 
 const MainStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const HomeStack = createStackNavigator();
-const InvoiceStack = createStackNavigator();
 const ShopStack = createStackNavigator();
 const StockStack = createStackNavigator();
 const ReportStack = createStackNavigator();
@@ -93,7 +89,7 @@ export default function App() {
 
 const DrawerNav = () => (
   <Drawer.Navigator
-    initialRouteName="HomeScreens"
+    initialRouteName="StockScreens"
     drawerContent={(props) => <AppDrawerContent {...props} />}
   >
     <Drawer.Screen name="HomeScreens" component={HomeScreens} />
@@ -130,51 +126,7 @@ const HomeScreens = (props) => (
         ),
       }}
     />
-    <HomeStack.Screen
-      name="AddInvoiceScreens"
-      component={AddInvoiceScreens}
-      options={{
-        title: "Add Invoice",
-        headerShown: false,
-      }}
-    />
   </HomeStack.Navigator>
-);
-
-const AddInvoiceScreens = (props) => (
-  <InvoiceStack.Navigator
-    screenOptions={{
-      headerStyle: { backgroundColor: AppColors.primary },
-      headerTintColor: AppColors.background,
-      headerTitleStyle: {
-        fontWeight: "bold",
-      },
-    }}
-  >
-    <InvoiceStack.Screen
-      name="SelectShopScreen"
-      component={AppSelectShop}
-      options={{
-        title: "සාප්පුවක් තෝරන්න",
-      }}
-    />
-    <InvoiceStack.Screen
-      name="AddInvoiceScreen"
-      component={AppAddInvoice}
-      options={{
-        title: "නව ඉන්වොයිස",
-        headerShown: false,
-      }}
-    />
-    <InvoiceStack.Screen
-      name="AddReturnScreen"
-      component={AppAddReturn}
-      options={{
-        title: "Deduct Returns",
-        headerShown: false,
-      }}
-    />
-  </InvoiceStack.Navigator>
 );
 
 const StockScreens = (props) => (

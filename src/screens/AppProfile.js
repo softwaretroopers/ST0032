@@ -3,8 +3,8 @@ import {
   View,
   StyleSheet,
   StatusBar,
-  TouchableHighlight,
   Linking,
+  TouchableHighlight,
 } from "react-native";
 import {
   Avatar,
@@ -25,6 +25,9 @@ function AppProfile(props) {
   const showDialog = () => setVisible(true);
 
   const hideDialog = () => setVisible(false);
+  const handleWebPress = useCallback(async () => {
+    await Linking.openURL("https://www.softwaretroopers.com/");
+  }, []);
   const handlePress = useCallback(async () => {
     await Linking.openURL("tel:+94717827878");
   }, []);
@@ -44,12 +47,15 @@ function AppProfile(props) {
             source={require("../assets/adaptive-icon.png")}
             style={{ margin: "2%", backgroundColor: "white" }}
           />
-          <Title style={{ fontWeight: "bold", color: AppColors.black }}>
-            Software{" "}
-            <Title style={{ fontWeight: "bold", color: AppColors.red }}>
-              Troopers
+          <TouchableHighlight onPress={handleWebPress}>
+            <Title style={{ fontWeight: "bold", color: AppColors.black }}>
+              Software{" "}
+              <Title style={{ fontWeight: "bold", color: AppColors.red }}>
+                Troopers
+              </Title>
             </Title>
-          </Title>
+          </TouchableHighlight>
+
           <View style={{ flexDirection: "row" }}>
             <Chip style={{ margin: "3%" }} icon="phone" onPress={handlePress}>
               දුරකතන අංකය
@@ -109,6 +115,8 @@ const styles = StyleSheet.create({
     padding: "2%",
     alignItems: "center",
     elevation: 10,
+    width: "30%",
+    alignSelf: "center",
   },
   accountMiddle: {
     padding: 20,

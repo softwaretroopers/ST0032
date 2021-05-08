@@ -71,7 +71,17 @@ function AppHome(props) {
 
   return (
     <View style={styles.screen}>
-      <StatusBar backgroundColor={AppColors.primary} barStyle="light-content" />
+      <Title
+        style={{
+          textAlign: "center",
+          fontWeight: "bold",
+          fontSize: 30,
+          color: AppColors.primary,
+        }}
+      >
+        In Development
+      </Title>
+      {/* <StatusBar backgroundColor={AppColors.primary} barStyle="light-content" />
       <FlatList
         data={Invoices}
         keyExtractor={(invoice) => invoice.id}
@@ -218,6 +228,13 @@ function AppHome(props) {
                   >
                     <Button
                       color={AppColors.primary}
+                      icon="download"
+                      mode="contained"
+                    >
+                      බාගත කරන්න
+                    </Button>
+                    <Button
+                      color={AppColors.primary}
                       icon="printer"
                       mode="contained"
                     >
@@ -229,12 +246,7 @@ function AppHome(props) {
             </View>
           </List.Section>
         )}
-      />
-      <FAB
-        style={styles.fab}
-        icon="plus"
-        onPress={() => props.navigation.navigate("AddInvoiceScreens")}
-      />
+      /> */}
     </View>
   );
 }
@@ -248,7 +260,7 @@ const styles = StyleSheet.create({
     marginTop: 3,
     fontWeight: "bold",
   },
-  screen: { flex: 1 },
+  screen: { flex: 1, justifyContent: "center" },
   caption: {
     fontSize: 14,
     lineHeight: 14,
@@ -276,13 +288,6 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     margin: "1%",
     elevation: 10,
-  },
-  fab: {
-    position: "absolute",
-    margin: 16,
-    right: 0,
-    bottom: 0,
-    backgroundColor: AppColors.secondary,
   },
 });
 

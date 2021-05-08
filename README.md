@@ -1,6 +1,6 @@
 # Po(S)T Admin
 
-A Mobile Application, developed using React Native, by Software Troopers.
+A Web Application, developed using React Native, by Software Troopers.
 
-Authors - _@kushenthimira_ (Cipher), _@Nehanga-Tharushka_ (Nehanga)
+Authors - _@kushenthimira_ (Cipher)
 Organization - @softwaretroopers (_softwaretroopers.com_)

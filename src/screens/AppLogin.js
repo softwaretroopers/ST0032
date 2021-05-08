@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   StyleSheet,
   View,
   Text,
-  ScrollView,
   Dimensions,
-  StatusBar,
   Image,
+  TouchableHighlight,
+  Linking,
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import AppColors from "../configs/AppColors";
 import { firebase } from "../firebase/Config";
 
 function AppLogin(props) {
+  const handlePress = useCallback(async () => {
+    await Linking.openURL("https://www.softwaretroopers.com/");
+  }, []);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -43,53 +46,51 @@ function AppLogin(props) {
       });
   };
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor={AppColors.primary} barStyle="light-content" />
-      <View style={styles.header}>
+    <View style={styles.screen}>
+      <View style={styles.container}>
         <Image
           source={require("../assets/logo.png")}
           style={styles.logo}
           resizeMode="stretch"
         />
-      </View>
-      <View
-        style={[
-          styles.footer,
-          {
-            backgroundColor: AppColors.background,
-          },
-        ]}
-      >
         <Text style={styles.text}>ආයුබොවන්!</Text>
-
-        <View style={styles.innerFooter}>
-          <ScrollView>
-            <TextInput
-              mode="outlined"
-              onChangeText={(text) => setEmail(text)}
-              value={email}
-              placeholder="විද්‍යුත් තැපෑල"
-            ></TextInput>
-            <TextInput
-              mode="outlined"
-              secureTextEntry
-              placeholder="මුරපදය"
-              onChangeText={(text) => setPassword(text)}
-              value={password}
-              underlineColorAndroid="transparent"
-              autoCapitalize="none"
-            ></TextInput>
-            <Button
-              mode="contained"
-              icon="check-circle"
-              style={styles.button}
-              onPress={() => onLoginPress()}
-              underlineColorAndroid="transparent"
-              autoCapitalize="none"
-            >
-              ඇතුල් වන්න
-            </Button>
-          </ScrollView>
+        <View>
+          <TextInput
+            mode="outlined"
+            onChangeText={(text) => setEmail(text)}
+            value={email}
+            placeholder="විද්‍යුත් තැපෑල"
+          ></TextInput>
+          <TextInput
+            mode="outlined"
+            secureTextEntry
+            placeholder="මුරපදය"
+            onChangeText={(text) => setPassword(text)}
+            value={password}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          ></TextInput>
+          <Button
+            mode="contained"
+            icon="check-circle"
+            style={styles.button}
+            onPress={() => onLoginPress()}
+            underlineColorAndroid="transparent"
+            autoCapitalize="none"
+          >
+            ඇතුල් වන්න
+          </Button>
+        </View>
+        <View style={styles.footer}>
+          <Text style={{ fontWeight: "bold", color: AppColors.primaryVariant }}>
+            Copyright © 2021 Design by{" "}
+            <TouchableHighlight onPress={handlePress}>
+              <Text style={{ color: AppColors.black }}>
+                Software
+                <Text style={{ color: AppColors.red }}> Troopers</Text>
+              </Text>
+            </TouchableHighlight>
+          </Text>
         </View>
       </View>
     </View>
@@ -99,40 +100,42 @@ function AppLogin(props) {
 export default AppLogin;
 
 const { height } = Dimensions.get("screen");
-const height_logo = height * 0.15;
+const height_logo = height * 0.1;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: AppColors.primary,
-  },
-  header: {
+  screen: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  footer: {
-    flex: 1.25,
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingTop: "8%",
-    paddingHorizontal: "5%",
-    justifyContent: "center",
+  container: {
+    borderColor: AppColors.primaryVariant,
+    borderWidth: 5,
+    borderStyle: "solid",
+    borderRadius: 10,
+    padding: "8%",
   },
-  innerFooter: { padding: "4%", marginTop: "5%" },
+  footer: {
+    position: "absolute",
+    padding: "2%",
+    bottom: 0,
+    alignSelf: "center",
+  },
   logo: {
     width: height_logo,
     height: height_logo,
+    alignSelf: "center",
+    margin: "5%",
   },
   button: {
-    padding: "4%",
+    padding: "2%",
     marginTop: "5%",
   },
   text: {
-    color: AppColors.primary,
-    fontSize: 25,
+    color: AppColors.primaryVariant,
+    fontSize: 20,
     fontWeight: "bold",
     alignSelf: "center",
+    margin: "5%",
   },
 });

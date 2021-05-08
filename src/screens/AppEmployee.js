@@ -11,6 +11,7 @@ import {
   Dialog,
   Paragraph,
   Button,
+  Divider,
 } from "react-native-paper";
 import { firebase } from "../firebase/Config";
 
@@ -55,22 +56,46 @@ function AppEmployee(props) {
           keyExtractor={(employee) => employee.id.toString()}
           renderItem={({ item }) => (
             <View style={styles.card}>
-              <Avatar.Icon size={50} icon="account" />
-              <Title style={styles.title}>{item.fullName}</Title>
-              <Caption>{item.email}</Caption>
-              <View style={{ flexDirection: "row" }}>
-                <IconButton
-                  icon="delete"
-                  color={AppColors.red}
-                  size={20}
-                  onPress={showConfirmation}
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Avatar.Icon
+                  style={{ marginRight: "2%" }}
+                  size={40}
+                  icon="account"
                 />
-                <IconButton
-                  icon="pen"
-                  color={AppColors.yellow}
-                  size={20}
-                  onPress={() => console.log("Pressed")}
+                <Divider
+                  style={{ marginHorizontal: 15, width: 1, height: "100%" }}
                 />
+                <View
+                  style={{ justifyContent: "center", alignItems: "center" }}
+                >
+                  <Title style={styles.title}>{item.fullName}</Title>
+                  <Caption>{item.email}</Caption>
+                </View>
+                {/* <Divider
+                  style={{ marginHorizontal: 15, width: 1, height: "100%" }}
+                />
+                <View
+                  style={{ justifyContent: "center", alignItems: "center" }}
+                >
+                  <IconButton
+                    icon="delete"
+                    color={AppColors.red}
+                    size={20}
+                    onPress={showConfirmation}
+                  />
+                  <IconButton
+                    icon="pen"
+                    color={AppColors.yellow}
+                    size={20}
+                    onPress={() => console.log("Pressed")}
+                  />
+                </View> */}
               </View>
             </View>
           )}
@@ -105,12 +130,12 @@ const styles = StyleSheet.create({
   card: {
     justifyContent: "center",
     alignItems: "center",
-    paddingVertical: "3%",
-    paddingHorizontal: "5%",
+    paddingVertical: "1%",
+    paddingHorizontal: "3%",
     elevation: 10,
     backgroundColor: AppColors.background,
     margin: "2%",
-    width: "75%",
+    width: "20%",
     alignSelf: "center",
     borderRadius: 10,
   },
@@ -119,7 +144,7 @@ const styles = StyleSheet.create({
   fab: {
     position: "absolute",
     margin: 16,
-    right: 0,
+    left: 0,
     bottom: 0,
     backgroundColor: AppColors.secondary,
   },

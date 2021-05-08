@@ -100,7 +100,9 @@ function AppStock(props) {
                   )}
                   {AppRenderIf(
                     10 < item.stock,
-                    <Chip style={{ marginRight: "3%" }}>Qty: {item.stock}</Chip>
+                    <Chip style={{ marginRight: "3%" }}>
+                      තොගය: {item.stock}
+                    </Chip>
                   )}
                   {AppRenderIf(
                     10 >= item.stock,
@@ -111,24 +113,39 @@ function AppStock(props) {
                       තොගය: {item.stock} (Low)
                     </Chip>
                   )}
-                  <Chip style={{ marginLeft: "3%" }}>Rs.{item.unitPriceA}</Chip>
+                  <Chip>තොග මිල: Rs.{item.stockPrice}</Chip>
+                </View>
+                <View style={{ flexDirection: "row" }}>
+                  <Chip>A කාණ්ඩයේ මිල: Rs.{item.unitPriceA}</Chip>
+                  <Chip style={{ marginLeft: "3%" }}>
+                    B කාණ්ඩයේ මිල: Rs.{item.unitPriceB}
+                  </Chip>
+                  <Chip style={{ marginLeft: "3%" }}>
+                    C කාණ්ඩයේ මිල: Rs.{item.unitPriceC}
+                  </Chip>
                 </View>
               </View>
-              <Divider style={{ marginLeft: "2%", width: 1, height: "100%" }} />
-              <View>
-                <IconButton
-                  icon="delete"
-                  color={AppColors.red}
-                  size={20}
-                  onPress={showConfirmation}
-                />
+              {/* <View
+                style={{
+                  flexDirection: "row",
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                }}
+              >
                 <IconButton
                   icon="pen"
                   color={AppColors.yellow}
                   size={20}
                   onPress={() => console.log("Pressed")}
                 />
-              </View>
+                <IconButton
+                  icon="delete"
+                  color={AppColors.red}
+                  size={20}
+                  onPress={showConfirmation}
+                />
+              </View> */}
             </View>
           )}
         />
@@ -168,13 +185,15 @@ const styles = StyleSheet.create({
     margin: "1%",
     borderRadius: 10,
     flexDirection: "row",
+    alignSelf: "center",
+    width: "40%",
   },
   title: { fontSize: 16 },
   screen: { flex: 1 },
   fab: {
     position: "absolute",
     margin: 16,
-    right: 0,
+    left: 0,
     bottom: 0,
     backgroundColor: AppColors.secondary,
   },
