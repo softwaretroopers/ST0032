@@ -14,7 +14,7 @@ import {
   Paragraph,
   Provider,
 } from "react-native-paper";
-import { firebase } from "../firebase/Config";
+import { firebase } from "../configs/Database";
 import AppColors from "../configs/AppColors";
 
 function AppAddStock(props) {

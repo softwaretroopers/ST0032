@@ -20,7 +20,7 @@ import {
 
 import AppColors from "../configs/AppColors";
 import AppRenderIf from "../configs/AppRenderIf";
-import { firebase } from "../firebase/Config";
+import { firebase } from "../configs/Database";
 
 function AppHome(props) {
   const [Invoices, setInvoices] = React.useState([]);

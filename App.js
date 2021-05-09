@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
-import { firebase } from "./src/firebase/Config";
+import { firebase } from "./src/configs/Database";
 import AppColors from "./src/configs/AppColors";
 
 import { createStackNavigator } from "@react-navigation/stack";
@@ -16,9 +16,11 @@ import AppProfile from "./src/screens/AppProfile";
 import AppAddShop from "./src/screens/AppAddShop";
 import AppAddEmployee from "./src/screens/AppAddEmployee";
 
-import AppDrawerContent from "./src/navigation/AppDrawerContent";
+import AppDrawerContent from "./src/screens/AppDrawerContent";
 import AppAddStock from "./src/screens/AppAddStock";
 import AppReport from "./src/screens/AppReport";
+import AppEditStock from "./src/screens/AppEditStock";
+import AppEditShop from "./src/screens/AppEditShop";
 
 const MainStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -161,6 +163,14 @@ const StockScreens = (props) => (
         title: "නව භාණ්ඩ",
       }}
     />
+    <StockStack.Screen
+      name="EditStockScreen"
+      component={AppEditStock}
+      options={{
+        title: "භාණ්ඩ දත්ත වෙනස් කිරීම",
+        headerShown: false,
+      }}
+    />
   </StockStack.Navigator>
 );
 
@@ -194,6 +204,14 @@ const ShopScreens = (props) => (
       component={AppAddShop}
       options={{
         title: "නව සාප්පු",
+      }}
+    />
+    <ShopStack.Screen
+      name="EditShopScreen"
+      component={AppEditShop}
+      options={{
+        title: "සාප්පු දත්ත වෙනස් කිරීම",
+        headerShown: false,
       }}
     />
   </ShopStack.Navigator>

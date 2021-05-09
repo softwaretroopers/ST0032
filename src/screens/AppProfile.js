@@ -16,7 +16,7 @@ import {
   Button,
   Chip,
 } from "react-native-paper";
-import { firebase } from "../firebase/Config";
+import { firebase } from "../configs/Database";
 import AppColors from "../configs/AppColors";
 
 function AppProfile(props) {
@@ -34,6 +34,10 @@ function AppProfile(props) {
   const handleEmailPress = useCallback(async () => {
     await Linking.openURL("mailto: support@expo.io");
   }, []);
+  const handleLogOutPress = useCallback(async () => {
+    await Linking.openURL("https://post-696969.web.app/");
+  }, []);
+
   return (
     <Provider>
       <View>
@@ -97,7 +101,7 @@ function AppProfile(props) {
                 <Paragraph>ඉවත් වීම සාර්ථකයි</Paragraph>
               </Dialog.Content>
               <Dialog.Actions>
-                <Button onPress={hideDialog}>හරි</Button>
+                <Button onPress={(hideDialog, handleLogOutPress)}>හරි</Button>
               </Dialog.Actions>
             </Dialog>
           </Portal>

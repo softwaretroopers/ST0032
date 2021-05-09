@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 import AppColors from "../configs/AppColors";
-import { firebase } from "../firebase/Config";
+import { firebase } from "../configs/Database";
 
 function AppLogin(props) {
   const handlePress = useCallback(async () => {

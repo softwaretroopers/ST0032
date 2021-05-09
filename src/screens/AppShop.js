@@ -1,29 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { View, StatusBar, FlatList, StyleSheet } from "react-native";
 import {
-  Avatar,
-  Title,
-  Caption,
-  FAB,
-  Provider,
-  IconButton,
-  Portal,
-  Dialog,
-  Paragraph,
-  Button,
-  Divider,
-} from "react-native-paper";
-import { firebase } from "../firebase/Config";
+  View,
+  StatusBar,
+  FlatList,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { Avatar, Title, Caption, FAB, Provider } from "react-native-paper";
+import { firebase } from "../configs/Database";
 
 import AppColors from "../configs/AppColors";
 
 function AppShop(props) {
-  const [visible, setVisible] = React.useState(false);
-
-  const showConfirmation = () => setVisible(true);
-
-  const hideConfirmation = () => setVisible(false);
-
   const [shops, setShops] = useState([]);
 
   const shopRef = firebase.firestore().collection("shops");
@@ -56,54 +44,28 @@ function AppShop(props) {
           data={shops}
           keyExtractor={(shop) => shop.id}
           renderItem={({ item }) => (
-            <View style={styles.card}>
-              <View
-                style={{
-                  flexDirection: "row",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Avatar.Icon
-                  style={{ marginRight: "2%" }}
-                  size={40}
-                  icon="store"
-                />
-                <Divider
-                  style={{ marginHorizontal: 15, width: 1, height: "100%" }}
-                />
-                <View
-                  style={{ justifyContent: "center", alignItems: "center" }}
-                >
-                  <Title style={styles.title}>{item.name}</Title>
-                  <Caption>
-                    මිල කාණ්ඩය:
-                    <Caption style={{ textTransform: "uppercase" }}>
-                      {item.category}
-                    </Caption>
+            <TouchableOpacity
+              onPress={(values) =>
+                props.navigation.navigate("EditShopScreen", {
+                  shop: {
+                    id: item.id,
+                    name: item.name,
+                    category: item.category,
+                  },
+                })
+              }
+            >
+              <View style={styles.card}>
+                <Avatar.Icon size={40} icon="store" />
+                <Title style={styles.title}>{item.name}</Title>
+                <Caption>
+                  මිල කාණ්ඩය:
+                  <Caption style={{ textTransform: "uppercase" }}>
+                    {item.category}
                   </Caption>
-                </View>
-                {/* <Divider
-                  style={{ marginHorizontal: 15, width: 1, height: "100%" }}
-                />
-                <View
-                  style={{ justifyContent: "center", alignItems: "center" }}
-                >
-                  <IconButton
-                    icon="delete"
-                    color={AppColors.red}
-                    size={20}
-                    onPress={showConfirmation}
-                  />
-                  <IconButton
-                    icon="pen"
-                    color={AppColors.yellow}
-                    size={20}
-                    onPress={() => console.log("Pressed")}
-                  />
-                </View> */}
+                </Caption>
               </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
         <FAB
@@ -111,18 +73,6 @@ function AppShop(props) {
           icon="plus"
           onPress={() => props.navigation.navigate("AddShopScreen")}
         />
-        <Portal>
-          <Dialog visible={visible} onDismiss={hideConfirmation}>
-            <Dialog.Title>Confirmation</Dialog.Title>
-            <Dialog.Content>
-              <Paragraph>Are you sure you want to delete this Shop?</Paragraph>
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={hideConfirmation}>No</Button>
-              <Button onPress={hideConfirmation}>Yes</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
       </View>
     </Provider>
   );
@@ -135,12 +85,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     paddingVertical: "1%",
-    paddingHorizontal: "3%",
     elevation: 10,
     backgroundColor: AppColors.background,
-    margin: "1%",
+    margin: "0.5%",
     borderRadius: 10,
-    width: "20%",
+    width: "30%",
     alignSelf: "center",
   },
   title: { fontSize: 16 },
@@ -148,7 +97,7 @@ const styles = StyleSheet.create({
   fab: {
     position: "absolute",
     margin: 16,
-    left: 0,
+    right: 0,
     bottom: 0,
     backgroundColor: AppColors.secondary,
   },

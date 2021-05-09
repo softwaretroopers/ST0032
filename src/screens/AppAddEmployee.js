@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, Dimensions, StatusBar } from "react-native";
-import { firebase } from "../firebase/Config";
+import { firebase } from "../configs/Database";
 import {
   TextInput,
   Button,
