@@ -77,8 +77,8 @@ function AppAddStock(props) {
             underlineColorAndroid="transparent"
             autoCapitalize="none"
             mode="outlined"
-            onChangeText={(text) => setUnitPriceA(text)}
-            value={unitPriceA}
+            onChangeText={(text) => setStockPrice(text)}
+            value={stockPrice}
             keyboardType="number-pad"
           />
           <TextInput
