@@ -4,14 +4,9 @@ import {
   Avatar,
   Title,
   Caption,
-  FAB,
   Provider,
-  IconButton,
-  Portal,
-  Dialog,
-  Paragraph,
-  Button,
   Divider,
+  Appbar,
 } from "react-native-paper";
 import { firebase } from "../configs/Database";
 
@@ -39,14 +34,20 @@ function AppEmployee(props) {
     );
   }, []);
 
-  const [visible, setVisible] = React.useState(false);
-
-  const showConfirmation = () => setVisible(true);
-
-  const hideConfirmation = () => setVisible(false);
   return (
     <Provider>
       <View style={styles.screen}>
+        <Appbar style={{ backgroundColor: AppColors.primary }}>
+          <Appbar.Action
+            icon="menu"
+            onPress={() => props.navigation.openDrawer()}
+          />
+          <Appbar.Content title="සේවකයන්" />
+          <Appbar.Action
+            icon="plus"
+            onPress={() => props.navigation.navigate("AddEmployeeScreen")}
+          />
+        </Appbar>
         <StatusBar
           backgroundColor={AppColors.primary}
           barStyle="light-content"
@@ -100,25 +101,6 @@ function AppEmployee(props) {
             </View>
           )}
         />
-        <FAB
-          style={styles.fab}
-          icon="plus"
-          onPress={() => props.navigation.navigate("AddEmployeeScreen")}
-        />
-        <Portal>
-          <Dialog visible={visible} onDismiss={hideConfirmation}>
-            <Dialog.Title>Confirmation</Dialog.Title>
-            <Dialog.Content>
-              <Paragraph>
-                Are you sure you want to delete this Employee?
-              </Paragraph>
-            </Dialog.Content>
-            <Dialog.Actions>
-              <Button onPress={hideConfirmation}>No</Button>
-              <Button onPress={hideConfirmation}>Yes</Button>
-            </Dialog.Actions>
-          </Dialog>
-        </Portal>
       </View>
     </Provider>
   );
@@ -141,11 +123,4 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 16 },
   screen: { flex: 1, justifyContent: "center" },
-  fab: {
-    position: "absolute",
-    margin: 16,
-    left: 0,
-    bottom: 0,
-    backgroundColor: AppColors.secondary,
-  },
 });

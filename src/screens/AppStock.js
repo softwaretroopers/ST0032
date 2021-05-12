@@ -9,10 +9,10 @@ import {
 import {
   Avatar,
   Title,
-  FAB,
   Chip,
   Provider,
   Caption,
+  Appbar,
 } from "react-native-paper";
 import { firebase } from "../configs/Database";
 import AppColors from "../configs/AppColors";
@@ -42,6 +42,17 @@ function AppStock(props) {
   return (
     <Provider>
       <View style={styles.screen}>
+        <Appbar style={{ backgroundColor: AppColors.primary }}>
+          <Appbar.Action
+            icon="menu"
+            onPress={() => props.navigation.openDrawer()}
+          />
+          <Appbar.Content title="තොග" />
+          <Appbar.Action
+            icon="plus"
+            onPress={() => props.navigation.navigate("AddStockScreen")}
+          />
+        </Appbar>
         <StatusBar
           backgroundColor={AppColors.primary}
           barStyle="light-content"
@@ -268,11 +279,6 @@ function AppStock(props) {
             </TouchableOpacity>
           )}
         />
-        <FAB
-          style={styles.fab}
-          icon="plus"
-          onPress={() => props.navigation.navigate("AddStockScreen")}
-        />
       </View>
     </Provider>
   );
@@ -283,11 +289,4 @@ export default AppStock;
 const styles = StyleSheet.create({
   title: { fontSize: 16 },
   screen: { flex: 1 },
-  fab: {
-    position: "absolute",
-    margin: 16,
-    right: 0,
-    bottom: 0,
-    backgroundColor: AppColors.secondary,
-  },
 });

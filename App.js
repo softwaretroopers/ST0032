@@ -21,6 +21,7 @@ import AppAddStock from "./src/screens/AppAddStock";
 import AppReport from "./src/screens/AppReport";
 import AppEditStock from "./src/screens/AppEditStock";
 import AppEditShop from "./src/screens/AppEditShop";
+import AppInvoice from "./src/screens/AppInvoice";
 
 const MainStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -91,7 +92,7 @@ export default function App() {
 
 const DrawerNav = () => (
   <Drawer.Navigator
-    initialRouteName="StockScreens"
+    initialRouteName="HomeScreens"
     drawerContent={(props) => <AppDrawerContent {...props} />}
   >
     <Drawer.Screen name="HomeScreens" component={HomeScreens} />
@@ -128,6 +129,14 @@ const HomeScreens = (props) => (
         ),
       }}
     />
+    <HomeStack.Screen
+      name="AppInvoice"
+      component={AppInvoice}
+      options={{
+        title: "Invoice Details",
+        headerShown: false,
+      }}
+    />
   </HomeStack.Navigator>
 );
 
@@ -145,6 +154,7 @@ const StockScreens = (props) => (
       name="StockScreen"
       component={AppStock}
       options={{
+        headerShown: false,
         title: "තොග",
         headerLeft: () => (
           <Button
@@ -188,6 +198,7 @@ const ShopScreens = (props) => (
       name="ShopScreen"
       component={AppShop}
       options={{
+        headerShown: false,
         title: "සාප්පු",
         headerLeft: () => (
           <Button
@@ -259,6 +270,7 @@ const EmployeeScreens = (props) => (
       name="EmployeeScreen"
       component={AppEmployee}
       options={{
+        headerShown: false,
         title: "සේවකයන්",
         headerLeft: () => (
           <Button

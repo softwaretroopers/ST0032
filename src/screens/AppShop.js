@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import { Avatar, Title, Caption, FAB, Provider } from "react-native-paper";
+import { Avatar, Title, Caption, Provider, Appbar } from "react-native-paper";
 import { firebase } from "../configs/Database";
 
 import AppColors from "../configs/AppColors";
@@ -36,6 +36,17 @@ function AppShop(props) {
   return (
     <Provider>
       <View style={styles.screen}>
+        <Appbar style={{ backgroundColor: AppColors.primary }}>
+          <Appbar.Action
+            icon="menu"
+            onPress={() => props.navigation.openDrawer()}
+          />
+          <Appbar.Content title="සාප්පු" />
+          <Appbar.Action
+            icon="plus"
+            onPress={() => props.navigation.navigate("AddShopScreen")}
+          />
+        </Appbar>
         <StatusBar
           backgroundColor={AppColors.primary}
           barStyle="light-content"
@@ -68,11 +79,6 @@ function AppShop(props) {
             </TouchableOpacity>
           )}
         />
-        <FAB
-          style={styles.fab}
-          icon="plus"
-          onPress={() => props.navigation.navigate("AddShopScreen")}
-        />
       </View>
     </Provider>
   );
@@ -94,11 +100,4 @@ const styles = StyleSheet.create({
   },
   title: { fontSize: 16 },
   screen: { flex: 1, justifyContent: "center" },
-  fab: {
-    position: "absolute",
-    margin: 16,
-    right: 0,
-    bottom: 0,
-    backgroundColor: AppColors.secondary,
-  },
 });
