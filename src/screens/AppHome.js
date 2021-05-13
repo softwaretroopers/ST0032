@@ -9,6 +9,7 @@ import {
 import { Avatar, Title, Caption, Provider } from "react-native-paper";
 
 import AppColors from "../configs/AppColors";
+import AppRenderIf from "../configs/AppRenderIf";
 import { firebase } from "../configs/Database";
 
 function AppHome(props) {
@@ -44,52 +45,113 @@ function AppHome(props) {
           data={Invoices}
           keyExtractor={(invoice) => invoice.id}
           renderItem={({ item }) => (
-            <TouchableOpacity
-              onPress={(values) => {
-                props.navigation.navigate("AppInvoice", {
-                  invoice: {
-                    docID: item.invoiceID,
-                    payMethod: item.payMethod,
-                    returns: item.returns,
-                    shopName: item.shopName,
-                    date: item.date,
-                    total: item.total,
-                  },
-                });
-              }}
-            >
-              <View style={styles.invoiceInfoSection}>
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-evenly",
+            <>
+              {AppRenderIf(
+                null == item.shopName,
+                <TouchableOpacity
+                  onPress={(values) => {
+                    props.navigation.navigate("AppDelInvoice", {
+                      invoice: {
+                        docID: item.invoiceID,
+                      },
+                    });
                   }}
                 >
-                  <View
-                    style={{
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Avatar.Icon size={40} icon="file-document" />
-                    <Title style={{ fontSize: 12 }}>{item.invoiceID}</Title>
-                  </View>
-
-                  <View style={{ flexDirection: "column" }}>
-                    <Title style={styles.title}>{item.shopName}</Title>
+                  <View style={styles.invoiceInfoSection}>
                     <View
                       style={{
                         flexDirection: "row",
-                        justifyContent: "space-between",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
                       }}
                     >
-                      <Caption style={styles.caption}>{item.date}</Caption>
+                      <View
+                        style={{
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Avatar.Icon size={40} icon="file-document" />
+                        <Title style={{ fontSize: 12 }}>{item.invoiceID}</Title>
+                      </View>
+                    </View>
+                    <Caption
+                      style={{
+                        textAlign: "center",
+                      }}
+                    >
+                      දත්ත රහිත ඉන්වොයිසයකි. කරුණාකර මෙහි දත්ත මකාදමන්න.
+                    </Caption>
+                    <Caption
+                      style={{
+                        fontSize: 10,
+                        color: AppColors.red,
+                        textAlign: "center",
+                      }}
+                    >
+                      (මෙය දත්ත එකතුකිරීමේ ක්‍රියාවලියේ තිබෙන ඉන්වොයිසයක් නොවන
+                      බව තහවුරු කර, මෙහි දත්ත මකාදමන්න.)
+                    </Caption>
+                  </View>
+                </TouchableOpacity>
+              )}
+              {AppRenderIf(
+                null != item.shopName,
+                <TouchableOpacity
+                  onLongPress={(values) => {
+                    props.navigation.navigate("AppDelInvoice", {
+                      invoice: {
+                        docID: item.invoiceID,
+                      },
+                    });
+                  }}
+                  onPress={(values) => {
+                    props.navigation.navigate("AppInvoice", {
+                      invoice: {
+                        docID: item.invoiceID,
+                        payMethod: item.payMethod,
+                        returns: item.returns,
+                        shopName: item.shopName,
+                        date: item.date,
+                        total: item.total,
+                      },
+                    });
+                  }}
+                >
+                  <View style={styles.invoiceInfoSection}>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        justifyContent: "space-evenly",
+                      }}
+                    >
+                      <View
+                        style={{
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <Avatar.Icon size={40} icon="file-document" />
+                        <Title style={{ fontSize: 12 }}>{item.invoiceID}</Title>
+                      </View>
+
+                      <View style={{ flexDirection: "column" }}>
+                        <Title style={styles.title}>{item.shopName}</Title>
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            justifyContent: "space-between",
+                          }}
+                        >
+                          <Caption style={styles.caption}>{item.date}</Caption>
+                        </View>
+                      </View>
                     </View>
                   </View>
-                </View>
-              </View>
-            </TouchableOpacity>
+                </TouchableOpacity>
+              )}
+            </>
           )}
         />
       </View>

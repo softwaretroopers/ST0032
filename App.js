@@ -22,6 +22,7 @@ import AppReport from "./src/screens/AppReport";
 import AppEditStock from "./src/screens/AppEditStock";
 import AppEditShop from "./src/screens/AppEditShop";
 import AppInvoice from "./src/screens/AppInvoice";
+import AppDelInvoice from "./src/screens/AppDelInvoice";
 
 const MainStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -135,6 +136,13 @@ const HomeScreens = (props) => (
       options={{
         title: "Invoice Details",
         headerShown: false,
+      }}
+    />
+    <HomeStack.Screen
+      name="AppDelInvoice"
+      component={AppDelInvoice}
+      options={{
+        title: "ඉන්වොයිස දත්ත මකාදැමීම",
       }}
     />
   </HomeStack.Navigator>
