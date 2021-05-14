@@ -21,8 +21,10 @@ import AppRenderIf from "../configs/AppRenderIf";
 function AppInvoice({ route, navigation }) {
   const { invoice } = route.params;
 
-  const printPDF = async () => {
+  const hideComponents = () => {
     setShowComponents(false);
+  };
+  const printPDF = async () => {
     await Print.printToFileAsync();
     setShowComponents(true);
   };
@@ -117,7 +119,7 @@ function AppInvoice({ route, navigation }) {
             <Appbar.Action
               icon="printer"
               onPress={() => {
-                printPDF();
+                setShowComponents(false);
               }}
             />
           </Appbar>
@@ -231,6 +233,20 @@ function AppInvoice({ route, navigation }) {
             ආපසු භාරගැනීම් අඩු කල පසු මුළු මුදල: Rs.
             {invoice.total - invoice.returns}
           </Title>
+          {AppRenderIf(
+            showComponents == false,
+            <Button
+              icon="printer"
+              onPress={() => {
+                printPDF();
+              }}
+              onLongPress={() => {
+                setShowComponents(true);
+              }}
+            >
+              මුද්‍රණය කරන්න
+            </Button>
+          )}
         </View>
         <Portal>
           <Dialog visible={visible} onDismiss={hideConfirmation}>
