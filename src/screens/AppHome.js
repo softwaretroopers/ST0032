@@ -114,6 +114,7 @@ function AppHome(props) {
                         shopName: item.shopName,
                         date: item.date,
                         total: item.total,
+                        invItems: item.invItems,
                       },
                     });
                   }}

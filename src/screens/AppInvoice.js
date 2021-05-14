@@ -15,9 +15,19 @@ import {
 } from "react-native-paper";
 import AppColors from "../configs/AppColors";
 import { firebase } from "../configs/Database";
+import * as Print from "expo-print";
+import AppRenderIf from "../configs/AppRenderIf";
 
 function AppInvoice({ route, navigation }) {
   const { invoice } = route.params;
+
+  const printPDF = async () => {
+    setShowComponents(false);
+    await Print.printToFileAsync();
+    setShowComponents(true);
+  };
+
+  const [showComponents, setShowComponents] = React.useState(true);
 
   const [visible, setVisible] = React.useState(false);
 
@@ -95,11 +105,23 @@ function AppInvoice({ route, navigation }) {
   return (
     <Provider>
       <ScrollView>
-        <Appbar>
-          <Appbar.BackAction onPress={() => navigation.goBack()} />
-          <Appbar.Content title="ඉන්වොයිසය" subtitle={invoice.docID} />
-          <Appbar.Action icon="trash-can-outline" onPress={showConfirmation} />
-        </Appbar>
+        {AppRenderIf(
+          showComponents == true,
+          <Appbar>
+            <Appbar.BackAction onPress={() => navigation.goBack()} />
+            <Appbar.Content title="ඉන්වොයිසය" subtitle={invoice.docID} />
+            <Appbar.Action
+              icon="trash-can-outline"
+              onPress={showConfirmation}
+            />
+            <Appbar.Action
+              icon="printer"
+              onPress={() => {
+                printPDF();
+              }}
+            />
+          </Appbar>
+        )}
         <View style={{ paddingBottom: "5%" }}>
           <View
             style={{
