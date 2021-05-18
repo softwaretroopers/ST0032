@@ -135,10 +135,10 @@ const HomeScreens = (props) => (
       component={AppInvoice}
       options={({ route }) => ({
         title:
-          "ඉන්වොයිසය : " +
           route.params.invoice.docID +
-          " | සාප්පුව : " +
-          route.params.invoice.shopName,
+          " (" +
+          route.params.invoice.shopName +
+          ") | ලක්ෂාන් වෙළදසැල",
         headerShown: false,
       })}
     />
