@@ -128,14 +128,20 @@ function AppInvoice({ route, navigation }) {
           <View
             style={{
               flexDirection: "row",
-              justifyContent: "center",
+              justifyContent: "space-between",
               padding: "2%",
             }}
           >
-            <View style={{ alignItems: "center" }}>
+            <View style={{ alignItems: "flex-start" }}>
               <Caption>ඉන්වොයිසය : {invoice.docID}</Caption>
               <Caption>දිනය : {invoice.date.toString()}</Caption>
               <Caption>සාප්පුව : {invoice.shopName}</Caption>
+            </View>
+            <View style={{ alignItems: "flex-end" }}>
+              <Caption>ලක්ෂාන් ට්‍රේඩින්</Caption>
+              <Caption>නො.414 දේවාල හන්දිය,</Caption>
+              <Caption>විල්පොත, හලාවත</Caption>
+              <Caption>077 23 11 205 / 071 65 83 245</Caption>
             </View>
           </View>
           <Divider />
