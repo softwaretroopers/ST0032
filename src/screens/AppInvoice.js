@@ -5,7 +5,6 @@ import {
   Text,
   Title,
   Appbar,
-  Caption,
   Divider,
   Portal,
   Provider,
@@ -133,15 +132,23 @@ function AppInvoice({ route, navigation }) {
             }}
           >
             <View style={{ alignItems: "flex-start" }}>
-              <Caption>ඉන්වොයිසය : {invoice.docID}</Caption>
-              <Caption>දිනය : {invoice.date.toString()}</Caption>
-              <Caption>සාප්පුව : {invoice.shopName}</Caption>
+              <Title style={{ fontSize: 14 }}>
+                ඉන්වොයිසය : {invoice.docID}
+              </Title>
+              <Title style={{ fontSize: 14 }}>
+                දිනය : {invoice.date.toString()}
+              </Title>
+              <Title style={{ fontSize: 14 }}>
+                සාප්පුව : {invoice.shopName}
+              </Title>
             </View>
             <View style={{ alignItems: "flex-end" }}>
-              <Caption>ලක්ෂාන් ට්‍රේඩින්</Caption>
-              <Caption>නො.414 දේවාල හන්දිය,</Caption>
-              <Caption>විල්පොත, හලාවත</Caption>
-              <Caption>077 23 11 205 / 071 65 83 245</Caption>
+              <Title style={{ fontSize: 14 }}>ලක්ෂාන් ට්‍රේඩින්</Title>
+              <Title style={{ fontSize: 14 }}>නො.414 දේවාල හන්දිය,</Title>
+              <Title style={{ fontSize: 14 }}>විල්පොත, හලාවත</Title>
+              <Title style={{ fontSize: 14 }}>
+                077 23 11 205 / 071 65 83 245
+              </Title>
             </View>
           </View>
           <Divider />
@@ -157,10 +164,24 @@ function AppInvoice({ route, navigation }) {
           </DataTable>
           <DataTable>
             <DataTable.Header>
-              <DataTable.Title>භාණ්ඩ</DataTable.Title>
-              <DataTable.Title numeric>ඒකක මිල</DataTable.Title>
-              <DataTable.Title numeric>ප්‍රමාණය</DataTable.Title>
-              <DataTable.Title numeric>මිල</DataTable.Title>
+              <DataTable.Title>
+                <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                  භාණ්ඩ
+                </Title>
+              </DataTable.Title>
+              <DataTable.Title numeric>
+                <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                  ඒකක මිල
+                </Title>
+              </DataTable.Title>
+              <DataTable.Title numeric>
+                <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                  ප්‍රමාණය
+                </Title>
+              </DataTable.Title>
+              <DataTable.Title numeric>
+                <Title style={{ fontSize: 14, fontWeight: "bold" }}>මිල</Title>
+              </DataTable.Title>
             </DataTable.Header>
             <FlatList
               data={InvoiceItem}
@@ -197,10 +218,24 @@ function AppInvoice({ route, navigation }) {
           </DataTable>
           <DataTable>
             <DataTable.Header>
-              <DataTable.Title>භාණ්ඩ</DataTable.Title>
-              <DataTable.Title numeric>ඒකක මිල</DataTable.Title>
-              <DataTable.Title numeric>ප්‍රමාණය</DataTable.Title>
-              <DataTable.Title numeric>මිල</DataTable.Title>
+              <DataTable.Title>
+                <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                  භාණ්ඩ
+                </Title>
+              </DataTable.Title>
+              <DataTable.Title numeric>
+                <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                  ඒකක මිල
+                </Title>
+              </DataTable.Title>
+              <DataTable.Title numeric>
+                <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                  ප්‍රමාණය
+                </Title>
+              </DataTable.Title>
+              <DataTable.Title numeric>
+                <Title style={{ fontSize: 14, fontWeight: "bold" }}>මිල</Title>
+              </DataTable.Title>
             </DataTable.Header>
             <FlatList
               data={ReturnItems}
