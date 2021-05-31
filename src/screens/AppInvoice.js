@@ -148,7 +148,7 @@ function AppInvoice({ route, navigation }) {
               </Title>
             </View>
             <View style={{ alignItems: "flex-end" }}>
-              <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+              <Title style={{ fontSize: 18, fontWeight: "bold" }}>
                 ලක්ෂාන් ට්‍රේඩින්
               </Title>
               <Title style={{ fontSize: 14, fontWeight: "bold" }}>
