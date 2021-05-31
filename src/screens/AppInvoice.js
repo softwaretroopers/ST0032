@@ -132,21 +132,32 @@ function AppInvoice({ route, navigation }) {
             }}
           >
             <View style={{ alignItems: "flex-start" }}>
-              <Title style={{ fontSize: 14 }}>
-                ඉන්වොයිසය : {invoice.docID}
+              <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                ඉන්වොයිසය :{" "}
+                <Title style={{ fontSize: 14 }}>{invoice.docID}</Title>
               </Title>
-              <Title style={{ fontSize: 14 }}>
-                දිනය : {invoice.date.toString()}
+              <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                දිනය :{" "}
+                <Title style={{ fontSize: 14 }}>
+                  {invoice.date.toString()}
+                </Title>
               </Title>
-              <Title style={{ fontSize: 14 }}>
-                සාප්පුව : {invoice.shopName}
+              <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                සාප්පුව :{" "}
+                <Title style={{ fontSize: 14 }}>{invoice.shopName}</Title>
               </Title>
             </View>
             <View style={{ alignItems: "flex-end" }}>
-              <Title style={{ fontSize: 14 }}>ලක්ෂාන් ට්‍රේඩින්</Title>
-              <Title style={{ fontSize: 14 }}>නො.414 දේවාල හන්දිය,</Title>
-              <Title style={{ fontSize: 14 }}>විල්පොත, හලාවත</Title>
-              <Title style={{ fontSize: 14 }}>
+              <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                ලක්ෂාන් ට්‍රේඩින්
+              </Title>
+              <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                නො.414 දේවාල හන්දිය,
+              </Title>
+              <Title style={{ fontSize: 14, fontWeight: "bold" }}>
+                විල්පොත, හලාවත
+              </Title>
+              <Title style={{ fontSize: 14, fontWeight: "bold" }}>
                 077 23 11 205 / 071 65 83 245
               </Title>
             </View>
