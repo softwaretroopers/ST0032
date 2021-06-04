@@ -19,6 +19,7 @@ import AppAddEmployee from "./src/screens/AppAddEmployee";
 import AppDrawerContent from "./src/screens/AppDrawerContent";
 import AppAddStock from "./src/screens/AppAddStock";
 import AppReport from "./src/screens/AppReport";
+import AppReportExport from "./src/screens/AppReportExport";
 import AppEditStock from "./src/screens/AppEditStock";
 import AppEditShop from "./src/screens/AppEditShop";
 import AppInvoice from "./src/screens/AppInvoice";
@@ -263,6 +264,13 @@ const ReportScreens = (props) => (
             onPress={() => props.navigation.openDrawer()}
           />
         ),
+      }}
+    />
+    <ReportStack.Screen
+      name="ReportExport"
+      component={AppReportExport}
+      options={{
+        title: "වාර්තාව",
       }}
     />
   </ReportStack.Navigator>

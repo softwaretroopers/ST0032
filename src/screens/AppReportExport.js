@@ -1,24 +1,23 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, StyleSheet } from "react-native";
-import { Title, TextInput, Button } from "react-native-paper";
-import AppColors from "../configs/AppColors";
-import { firebase } from "../configs/Database";
+import { Title } from "react-native-paper";
 
-function AppReport(props) {
+import { firebase } from "../configs/Database";
+import AppColors from "../configs/AppColors";
+
+function AppReportExport({ navigation, route }) {
+  const { selectedDate } = route.params;
   const [InvoiceItem, setInvoiceItems] = React.useState([]);
-  const [date, setDate] = React.useState("");
-  const [month, setMonth] = React.useState("");
-  const [year, setYear] = React.useState("");
+
+  const getDate = () => {
+    var date = selectedDate.date;
+    var month = selectedDate.month;
+    var year = selectedDate.year;
+    return date + "/" + month + "/" + year;
+  };
 
   let totalStock = 0;
   let totalPrice = 0;
-
-  const getCurrentDate = () => {
-    var date = new Date().getDate();
-    var month = new Date().getMonth() + 1;
-    var year = new Date().getFullYear();
-    return date + "/" + month + "/" + year;
-  };
 
   InvoiceItem.forEach((item) => {
     totalPrice += item.total;
@@ -28,9 +27,9 @@ function AppReport(props) {
   const invoiceItemRef = firebase
     .firestore()
     .collection("invoices")
-    .where("date", "==", getCurrentDate());
+    .where("date", "==", getDate());
 
-  useEffect(() => {
+  React.useEffect(() => {
     invoiceItemRef.onSnapshot(
       (querySnapshot) => {
         const newInvoiceItem = [];
@@ -46,7 +45,6 @@ function AppReport(props) {
       }
     );
   }, []);
-
   return (
     <View style={styles.screen}>
       <View
@@ -59,7 +57,6 @@ function AppReport(props) {
           alignSelf: "center",
           padding: "2%",
           backgroundColor: AppColors.background,
-          marginTop: "2%",
         }}
       >
         <Title
@@ -69,7 +66,7 @@ function AppReport(props) {
             fontSize: 16,
           }}
         >
-          දිනය: {getCurrentDate()}
+          දිනය: {getDate()}
         </Title>
         <View
           style={{
@@ -110,67 +107,12 @@ function AppReport(props) {
           </Title>
         </View>
       </View>
-      <View
-        style={{
-          justifyContent: "center",
-          alignItems: "center",
-          marginTop: "2%",
-        }}
-      >
-        <View style={{ flexDirection: "row", marginBottom: "1%" }}>
-          <TextInput
-            placeholder="දිනය"
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-            mode="outlined"
-            onChangeText={(text) => setDate(text)}
-            value={date}
-            keyboardType="number-pad"
-          />
-          <TextInput
-            placeholder="මාසය"
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-            mode="outlined"
-            onChangeText={(text) => setMonth(text)}
-            value={month}
-            keyboardType="number-pad"
-          />
-          <TextInput
-            placeholder="වර්ෂය"
-            underlineColorAndroid="transparent"
-            autoCapitalize="none"
-            mode="outlined"
-            onChangeText={(text) => setYear(text)}
-            value={year}
-            keyboardType="number-pad"
-          />
-        </View>
-        <Button
-          style={{ padding: "0.5%" }}
-          mode="contained"
-          icon="check-circle"
-          underlineColorAndroid="transparent"
-          autoCapitalize="none"
-          onPress={(values) => {
-            props.navigation.navigate("ReportExport", {
-              selectedDate: {
-                date: date,
-                month: month,
-                year: year,
-              },
-            });
-          }}
-        >
-          ඇතුලත් කරන්න
-        </Button>
-      </View>
     </View>
   );
 }
 
-export default AppReport;
+export default AppReportExport;
 
 const styles = StyleSheet.create({
-  screen: { flex: 1 },
+  screen: { flex: 1, justifyContent: "center" },
 });

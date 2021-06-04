@@ -165,7 +165,7 @@ function AppInvoice({ route, navigation }) {
           <Divider />
           <DataTable>
             <DataTable.Header
-              style={{ borderColor: AppColors.black, borderWidth: 2 }}
+              style={{ borderColor: AppColors.black, borderWidth: 1 }}
             >
               <DataTable.Cell>ගෙවීමේ ක්‍රමය :</DataTable.Cell>
               <DataTable.Cell numeric>
@@ -177,7 +177,7 @@ function AppInvoice({ route, navigation }) {
           </DataTable>
           <DataTable>
             <DataTable.Header
-              style={{ borderColor: AppColors.black, borderWidth: 2 }}
+              style={{ borderColor: AppColors.black, borderWidth: 1 }}
             >
               <DataTable.Title>
                 <Title style={{ fontSize: 14, fontWeight: "bold" }}>
@@ -203,7 +203,7 @@ function AppInvoice({ route, navigation }) {
               keyExtractor={(invoice) => invoice.id}
               renderItem={({ item }) => (
                 <DataTable.Row
-                  style={{ borderColor: AppColors.black, borderWidth: 2 }}
+                  style={{ borderColor: AppColors.black, borderWidth: 1 }}
                 >
                   <DataTable.Cell>{item.itemName}</DataTable.Cell>
                   <DataTable.Cell numeric>Rs.{item.unitPrice}</DataTable.Cell>
@@ -228,7 +228,7 @@ function AppInvoice({ route, navigation }) {
           <Divider />
           <DataTable>
             <DataTable.Header
-              style={{ borderColor: AppColors.black, borderWidth: 2 }}
+              style={{ borderColor: AppColors.black, borderWidth: 1 }}
             >
               <DataTable.Cell style={{ justifyContent: "center" }}>
                 ආපසු භාරගැනීම්
@@ -237,7 +237,7 @@ function AppInvoice({ route, navigation }) {
           </DataTable>
           <DataTable>
             <DataTable.Header
-              style={{ borderColor: AppColors.black, borderWidth: 2 }}
+              style={{ borderColor: AppColors.black, borderWidth: 1 }}
             >
               <DataTable.Title>
                 <Title style={{ fontSize: 14, fontWeight: "bold" }}>
@@ -263,7 +263,7 @@ function AppInvoice({ route, navigation }) {
               keyExtractor={(invoice) => invoice.id}
               renderItem={({ item }) => (
                 <DataTable.Row
-                  style={{ borderColor: AppColors.black, borderWidth: 2 }}
+                  style={{ borderColor: AppColors.black, borderWidth: 1 }}
                 >
                   <DataTable.Cell>{item.itemName}</DataTable.Cell>
                   <DataTable.Cell numeric>Rs.{item.unitPrice}</DataTable.Cell>
