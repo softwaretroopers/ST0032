@@ -68,6 +68,13 @@ function AppDrawerContent(props) {
                 }}
                 icon="package-variant"
               />
+                <Drawer.Item
+                label="කාණ්ඩ"
+                onPress={() => {
+                  props.navigation.navigate("CategoryScreens");
+                }}
+                icon="sitemap"
+              />
               <Drawer.Item
                 label="සාප්පු"
                 onPress={() => {

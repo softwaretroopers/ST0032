@@ -24,12 +24,20 @@ import AppEditStock from "./src/screens/AppEditStock";
 import AppEditShop from "./src/screens/AppEditShop";
 import AppInvoice from "./src/screens/AppInvoice";
 import AppDelInvoice from "./src/screens/AppDelInvoice";
+import AppAddRoute from "./src/screens/AppAddRoute";
+import AppRoute from "./src/screens/AppRoute";
+import AppCategory from "./src/screens/AppCategory";
+import AppAddCategory from "./src/screens/AppAddCategory";
+import AppEditCategory from "./src/screens/AppEditCategory";
+import AppSelectCategory from "./src/screens/AppSelectCategory";
+import AppSelectStockCategory from "./src/screens/AppSelectStockCategory";
 
 const MainStack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 const HomeStack = createStackNavigator();
 const ShopStack = createStackNavigator();
 const StockStack = createStackNavigator();
+const CategoryStack = createStackNavigator();
 const ReportStack = createStackNavigator();
 const EmployeeStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
@@ -99,6 +107,7 @@ const DrawerNav = () => (
   >
     <Drawer.Screen name="HomeScreens" component={HomeScreens} />
     <Drawer.Screen name="StockScreens" component={StockScreens} />
+    <Drawer.Screen name="CategoryScreens" component={CategoryScreens} />
     <Drawer.Screen name="ShopScreens" component={ShopScreens} />
     <Drawer.Screen name="ReportScreens" component={ReportScreens} />
     <Drawer.Screen name="EmployeeScreens" component={EmployeeScreens} />
@@ -163,7 +172,7 @@ const StockScreens = (props) => (
       },
     }}
   >
-    <StockStack.Screen
+    {/* <StockStack.Screen
       name="StockScreen"
       component={AppStock}
       options={{
@@ -178,12 +187,44 @@ const StockScreens = (props) => (
           />
         ),
       }}
+    /> */}
+     <StockStack.Screen
+      name="SelectCategoryScreen"
+      component={AppSelectCategory}
+      options={{
+        title: "තොග",
+        headerShown:false,
+        headerLeft: () => (
+          <Button
+            labelStyle={{ fontSize: 24 }}
+            icon="menu"
+            color={AppColors.background}
+            onPress={() => props.navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+   <StockStack.Screen
+      name="StockScreen"
+      component={AppStock}
+      options={{
+        title: "නව භාණ්ඩ",
+        headerShown:false,
+      }}
     />
     <StockStack.Screen
       name="AddStockScreen"
       component={AppAddStock}
       options={{
         title: "නව භාණ්ඩ",
+      }}
+    />
+    <StockStack.Screen
+      name="StockCategoryScreen"
+      component={AppSelectStockCategory}
+      options={{
+        title: "නව භාණ්ඩ",
+        headerShown: false,
       }}
     />
     <StockStack.Screen
@@ -197,6 +238,51 @@ const StockScreens = (props) => (
   </StockStack.Navigator>
 );
 
+const CategoryScreens = (props) => (
+  <CategoryStack.Navigator
+    screenOptions={{
+      headerStyle: { backgroundColor: AppColors.primary },
+      headerTintColor: AppColors.background,
+      headerTitleStyle: {
+        fontWeight: "bold",
+      },
+    }}
+  >
+    <CategoryStack.Screen
+      name="CategoryScreen"
+      component={AppCategory}
+      options={{
+        headerShown: false,
+        title: "කාණ්ඩ",
+        headerLeft: () => (
+          <Button
+            labelStyle={{ fontSize: 24 }}
+            icon="menu"
+            color={AppColors.background}
+            onPress={() => props.navigation.openDrawer()}
+          />
+        ),
+      }}
+    />
+    <CategoryStack.Screen
+      name="AddCategoryScreen"
+      component={AppAddCategory}
+      options={{
+        title: "කාණ්ඩ",
+       // headerShown: false,
+      }}
+    />
+     <CategoryStack.Screen
+      name="EditCategoryScreen"
+      component={AppEditCategory}
+      options={{
+        title: "කාණ්ඩ",
+       headerShown: false,
+      }}
+    />
+  </CategoryStack.Navigator>
+);
+
 const ShopScreens = (props) => (
   <ShopStack.Navigator
     screenOptions={{
@@ -208,8 +294,8 @@ const ShopScreens = (props) => (
     }}
   >
     <ShopStack.Screen
-      name="ShopScreen"
-      component={AppShop}
+      name="RouteScreen"
+      component={AppRoute}
       options={{
         headerShown: false,
         title: "සාප්පු",
@@ -221,6 +307,21 @@ const ShopScreens = (props) => (
             onPress={() => props.navigation.openDrawer()}
           />
         ),
+      }}
+    />
+     <ShopStack.Screen
+      name="ShopScreen"
+      component={AppShop}
+      options={{
+        title: "නව ප්‍රදේශ",
+        headerShown:false,
+      }}
+    />
+     <ShopStack.Screen
+      name="AddRouteScreen"
+      component={AppAddRoute}
+      options={{
+        title: "නව ප්‍රදේශ",
       }}
     />
     <ShopStack.Screen

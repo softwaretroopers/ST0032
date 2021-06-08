@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
   ScrollView,
   Dimensions,
   StatusBar,
+  TouchableOpacity
 } from "react-native";
 import {
   Button,
@@ -13,11 +14,14 @@ import {
   Portal,
   Paragraph,
   Provider,
+  Title,
 } from "react-native-paper";
 import { firebase } from "../configs/Database";
 import AppColors from "../configs/AppColors";
 
-function AppAddStock(props) {
+function AppAddStock({navigation,route}) {
+  const { stockcategory } = route.params;
+
   const [visible, setVisible] = React.useState(false);
 
   const showDialog = () => setVisible(true);
@@ -42,18 +46,40 @@ function AppAddStock(props) {
         unitPriceB: unitPriceB,
         unitPriceC: unitPriceC,
         stock: stock,
+        category: stockcategory.name,
       };
       stockRef
         .add(data)
         .then((_doc) => {
           setItemName("");
-          props.navigation.goBack();
+          navigation.goBack();
         })
         .catch((error) => {
           alert(error);
         });
     }
   };
+
+  const [shops, setShops] = useState([]);
+
+  const shopRef = firebase.firestore().collection("category");
+
+  useEffect(() => {
+    shopRef.onSnapshot(
+      (querySnapshot) => {
+        const newShops = [];
+        querySnapshot.forEach((doc) => {
+          const shop = doc.data();
+          shop.id = doc.id;
+          newShops.push(shop);
+        });
+        setShops(newShops);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }, []);
 
   return (
     <Provider>
@@ -64,6 +90,14 @@ function AppAddStock(props) {
         />
 
         <ScrollView style={{ marginTop: "3%" }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("StockCategoryScreen") }
+        >
+        <View style={styles.card}>
+         <Title style={styles.title}>{stockcategory.name}</Title>
+        </View>
+          </TouchableOpacity>
+
           <TextInput
             placeholder="භාණ්ඩයේ නම"
             underlineColorAndroid="transparent"
@@ -177,6 +211,22 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     alignSelf: "center",
   },
+  card: {
+    justifyContent: "space-between",
+    alignItems: "flex-start",
+    paddingVertical: "3%",
+    paddingHorizontal: "5%",
+    elevation: 10,
+    backgroundColor: AppColors.background,
+    borderRadius: 6,
+    alignSelf: "center",
+    borderColor:"#000000",
+    borderWidth:1,
+  
+  },
+  title: { 
+      fontSize: 18,
+},
 });
 
 export default AppAddStock;

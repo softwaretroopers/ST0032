@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Text, Dimensions, StatusBar,FlatList,TouchableOpacity  } from "react-native";
+import { StyleSheet, View, Text, Dimensions, StatusBar ,FlatList,TouchableNativeFeedback} from "react-native";
 import {
   Caption,
   ToggleButton,
@@ -9,15 +9,20 @@ import {
   Portal,
   Paragraph,
   Provider,
-  Title,
+  Snackbar,
   Avatar,
+  Title,
 } from "react-native-paper";
 import { firebase } from "../configs/Database";
 
 import AppColors from "../configs/AppColors";
 
-function AppAddShop(props) {
-  const [route, setroute] = useState("");
+function AppAddCategory(props) {
+  const [visibleSnack, setVisibleSnack] = React.useState(false);
+
+  const onToggleSnackBar = () => setVisibleSnack(!visibleSnack);
+
+  const onDismissSnackBar = () => setVisibleSnack(false);
 
   const [visible, setVisible] = React.useState(false);
 
@@ -25,25 +30,23 @@ function AppAddShop(props) {
 
   const hideDialog = () => setVisible(false);
 
-  const [value, setValue] = useState("a");
+  const [value, setValue] = useState("");
 
   const [entityText, setEntityText] = useState("");
 
-  const entityRef = firebase.firestore().collection("shops");
+  const entityRef = firebase.firestore().collection("category");
 
   const onAddButtonPress = () => {
     if (entityText && entityText.length > 0) {
       //const key = Date.now();
       const data = {
         name: entityText,
-        category: value,
-        route: route,
       };
       entityRef
         .add(data)
         .then((_doc) => {
           setEntityText("");
-          props.navigation.goBack();
+         // props.navigation.goBack();
         })
         .catch((error) => {
           alert(error);
@@ -51,26 +54,6 @@ function AppAddShop(props) {
     }
   };
 
-  const [shops, setShops] = useState([]);
-
-  const shopRef = firebase.firestore().collection("route");
-
-  useEffect(() => {
-    shopRef.onSnapshot(
-      (querySnapshot) => {
-        const newShops = [];
-        querySnapshot.forEach((doc) => {
-          const shop = doc.data();
-          shop.id = doc.id;
-          newShops.push(shop);
-        });
-        setShops(newShops);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }, []);
   return (
     <Provider>
       <View style={styles.container}>
@@ -79,7 +62,7 @@ function AppAddShop(props) {
           barStyle="light-content"
         />
         <View style={styles.header}>
-          <Text style={styles.text}>නව සාප්පු තොරතුරු ඇතුලත් කරන්න</Text>
+          <Text style={styles.text}>නව කාණ්ඩ තොරතුරු ඇතුලත් කරන්න</Text>
         </View>
         <View
           style={[
@@ -90,66 +73,21 @@ function AppAddShop(props) {
           ]}
         >
           <View style={styles.innerFooter}>
-          <View>
-            <Title>ප්‍රදේශය තෝරන්න</Title>
-            <FlatList
-             data={shops}
-             keyExtractor={(shop) => shop.id}
-             horizontal
-             renderItem={({ item }) => (
-            <TouchableOpacity 
-              onPress={(values) => setroute(item.name) }
-            >
-              <View >
-              <Avatar.Text size={40} label={item.name} />
-              </View>
-            </TouchableOpacity >
-          )}
-        />
-            </View>
 
             <TextInput
-              placeholder={"තෝරාගත් ප්‍රදේශය"}
-              //onChangeText={(text) => setEntityText(text)}
-              value={"තෝරාගත් ප්‍රදේශය :"+route}
-              underlineColorAndroid="transparent"
-              disabled
-              mode="outlined"
-              left={<TextInput.Icon name="road-variant" />}
-            />
-            <TextInput
-              placeholder="සාප්පු නම"
+              placeholder="කාණ්ඩ නම"
               onChangeText={(text) => setEntityText(text)}
               value={entityText}
               underlineColorAndroid="transparent"
               autoCapitalize="none"
               mode="outlined"
+              left={<TextInput.Icon name="store" />}
             />
-
-            <View
-              style={{
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "row",
-              }}
-            >
-              <Caption style={{ fontSize: 16 }}>මිල කාණ්ඩය </Caption>
-              <ToggleButton.Row
-                onValueChange={(value) => setValue(value)}
-                value={value}
-              >
-                <ToggleButton icon="alpha-a" value="a"></ToggleButton>
-                <ToggleButton icon="alpha-b" value="b"></ToggleButton>
-                <ToggleButton icon="alpha-c" value="c"></ToggleButton>
-              </ToggleButton.Row>
-            </View>
             <Button
               mode="contained"
               icon="check-circle"
               style={styles.button}
-              onPress={() => {
-                onAddButtonPress(), showDialog();
-              }}
+              onPress={showDialog}
               underlineColorAndroid="transparent"
               autoCapitalize="none"
             >
@@ -159,13 +97,43 @@ function AppAddShop(props) {
               <Dialog visible={visible} onDismiss={hideDialog}>
                 <Dialog.Title>නිවේදනය</Dialog.Title>
                 <Dialog.Content>
-                  <Paragraph>සාර්ථකයි</Paragraph>
+                  <Paragraph>දත්ත එකතු කිරීම තහවුරු කරන්න</Paragraph>
                 </Dialog.Content>
-                <Dialog.Actions>
-                  <Button onPress={hideDialog}>හරි</Button>
+                <Dialog.Actions style={{ justifyContent: "space-evenly" }}>
+                  <Button
+                    mode="contained"
+                    color={AppColors.red}
+                    onPress={hideDialog}
+                  >
+                    අවලංගු කරන්න
+                  </Button>
+                  <Button
+                    mode="contained"
+                    color={AppColors.secondaryVariant}
+                    onPress={() => {
+                      hideDialog();
+                      onToggleSnackBar();
+                      onAddButtonPress();
+                    }}
+                  >
+                    තහවුරු කරන්න
+                  </Button>
                 </Dialog.Actions>
               </Dialog>
             </Portal>
+            <Snackbar
+              visible={visibleSnack}
+              onDismiss={onDismissSnackBar}
+              action={{
+                label: "හරි",
+                onPress: () => {
+                  onDismissSnackBar();
+                 // props.navigation.goBack();
+                },
+              }}
+            >
+              දත්ත එකතු කිරීම සාර්ථකයි
+            </Snackbar>
           </View>
         </View>
       </View>
@@ -173,7 +141,7 @@ function AppAddShop(props) {
   );
 }
 
-export default AppAddShop;
+export default AppAddCategory;
 
 const { height } = Dimensions.get("screen");
 const height_logo = height * 0.15;
@@ -202,7 +170,7 @@ const styles = StyleSheet.create({
     height: height_logo,
   },
   button: {
-    padding: "2%",
+    padding: "4%",
     marginTop: "5%",
   },
   forget: {

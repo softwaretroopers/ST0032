@@ -34,6 +34,7 @@ function AppEditShop({ navigation, route }) {
       const data = {
         name: entityText,
         category: value,
+        route:shop.route,
       };
       entityRef
         .set(data)

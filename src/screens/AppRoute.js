@@ -11,17 +11,13 @@ import { firebase } from "../configs/Database";
 
 import AppColors from "../configs/AppColors";
 
-function AppShop({navigation,route}) {
-
-  const {category}=route.params;
-
+function AppRoute(props) {
   const [shops, setShops] = useState([]);
 
-  const shopRef = firebase.firestore().collection("shops");
+  const shopRef = firebase.firestore().collection("route");
 
   useEffect(() => {
-    shopRef.where("route","==",category.name)
-    .onSnapshot(
+    shopRef.onSnapshot(
       (querySnapshot) => {
         const newShops = [];
         querySnapshot.forEach((doc) => {
@@ -40,12 +36,25 @@ function AppShop({navigation,route}) {
   return (
     <Provider>
       <View style={styles.screen}>
-      <Appbar style={{ backgroundColor: AppColors.primary }}>
-          <Appbar.BackAction onPress={() => navigation.goBack()} />
-          <Appbar.Content
-            title="තෝරාගත් ප්‍රදේශය"
-            subtitle={category.name}
+        <Appbar style={{ backgroundColor: AppColors.primary}}>
+          <Appbar.Action
+            icon="menu"
+            onPress={() => props.navigation.openDrawer()}
           />
+          <Appbar.Content title="සාප්පු" />
+          
+          <Appbar.Action
+            icon="plus"
+            onPress={() => props.navigation.navigate("AddRouteScreen")}
+          />
+          <Appbar.Content title="ප්‍රදේශය"/>
+         
+          <Appbar.Action
+            icon="plus"
+            onPress={() => props.navigation.navigate("AddShopScreen")}
+          />
+           <Appbar.Content title="වෙළෙඳසැල්"/>
+
         </Appbar>
         <StatusBar
           backgroundColor={AppColors.primary}
@@ -57,25 +66,18 @@ function AppShop({navigation,route}) {
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={(values) =>
-                navigation.navigate("EditShopScreen", {
-                  shop: {
+                props.navigation.navigate("ShopScreen", {
+                  category: {
                     id: item.id,
                     name: item.name,
-                    category: item.category,
-                    route:item.route,
                   },
                 })
               }
             >
               <View style={styles.card}>
-                <Avatar.Icon size={40} icon="store" />
+                <Avatar.Icon size={40} icon="road-variant" />
                 <Title style={styles.title}>{item.name}</Title>
-                <Caption>
-                  මිල කාණ්ඩය:
-                  <Caption style={{ textTransform: "uppercase" }}>
-                    {item.category}
-                  </Caption>
-                </Caption>
+                
               </View>
             </TouchableOpacity>
           )}
@@ -85,7 +87,7 @@ function AppShop({navigation,route}) {
   );
 }
 
-export default AppShop;
+export default AppRoute;
 
 const styles = StyleSheet.create({
   card: {

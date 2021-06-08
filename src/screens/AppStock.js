@@ -19,7 +19,10 @@ import { firebase } from "../configs/Database";
 import AppColors from "../configs/AppColors";
 import AppRenderIf from "../configs/AppRenderIf";
 
-function AppStock(props) {
+function AppStock({navigation,route}) {
+
+  const {category}=route.params;
+
   const [StockItems, setStockItems] = useState([]);
 
   const stockRef = firebase.firestore().collection("stockItems");
@@ -48,7 +51,7 @@ function AppStock(props) {
   const [masterDataSource, setMasterDataSource] = useState([]);
 
   React.useEffect(() => {
-    stockInvoiceRef.onSnapshot(
+    stockInvoiceRef.where("category","==",category.name).onSnapshot(
         (querySnapshot) => {
           const newStock = [];
           querySnapshot.forEach((doc) => {
@@ -91,15 +94,11 @@ function AppStock(props) {
   return (
     <Provider>
       <View style={styles.screen}>
-        <Appbar style={{ backgroundColor: AppColors.primary }}>
-          <Appbar.Action
-            icon="menu"
-            onPress={() => props.navigation.openDrawer()}
-          />
-          <Appbar.Content title="තොග" />
-          <Appbar.Action
-            icon="plus"
-            onPress={() => props.navigation.navigate("AddStockScreen")}
+      <Appbar style={{ backgroundColor: AppColors.primary }}>
+          <Appbar.BackAction onPress={() => navigation.goBack()} />
+          <Appbar.Content
+            title="තෝරාගත් කාණ්ඩය"
+            subtitle={category.name}
           />
         </Appbar>
         <StatusBar
@@ -119,11 +118,12 @@ function AppStock(props) {
           renderItem={({ item }) => (
             <TouchableOpacity
               onPress={(values) =>
-                props.navigation.navigate("EditStockScreen", {
+                navigation.navigate("EditStockScreen", {
                   stockItem: {
                     id: item.id,
                     itemName: item.itemName,
                     stock: item.stock,
+                    category: item.category,
                     stockPrice: item.stockPrice,
                     unitPriceA: item.unitPriceA,
                     unitPriceB: item.unitPriceB,
